@@ -4,7 +4,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
 
-# ✅ Create vector store
+# Create vector store
 def create_vector_store():
     pdf_path = "data/python-machine-learning-2nd.pdf"
 
@@ -20,13 +20,13 @@ def create_vector_store():
     vectorstore.save_local("vectorstore")
 
 
-# ✅ Load vector store
+# Load vector store
 def load_vector_store():
     embeddings = OpenAIEmbeddings()
     return FAISS.load_local("vectorstore", embeddings)
 
 
-# ✅ Get answer
+# Get answer
 def get_answer(query):
     vectorstore = load_vector_store()
     docs = vectorstore.similarity_search(query, k=3)
