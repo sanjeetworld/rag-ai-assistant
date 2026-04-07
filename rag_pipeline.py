@@ -1,9 +1,10 @@
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
-# ✅ STEP 1: Create vector store from direct file path
+
+# ✅ Create vector store
 def create_vector_store():
     pdf_path = "data/python-machine-learning-2nd.pdf"
 
@@ -19,13 +20,13 @@ def create_vector_store():
     vectorstore.save_local("vectorstore")
 
 
-# ✅ STEP 2: Load vector store
+# ✅ Load vector store
 def load_vector_store():
     embeddings = OpenAIEmbeddings()
     return FAISS.load_local("vectorstore", embeddings)
 
 
-# ✅ STEP 3: Ask question
+# ✅ Get answer
 def get_answer(query):
     vectorstore = load_vector_store()
     docs = vectorstore.similarity_search(query, k=3)
@@ -35,7 +36,7 @@ def get_answer(query):
     llm = ChatOpenAI()
 
     prompt = f"""
-Answer based only on the given context.
+Answer only from the given context.
 
 Context:
 {context}
@@ -43,5 +44,6 @@ Context:
 Question:
 {query}
 """
-
-    return llm.predict(prompt)
+    
+    
+    return llm.invoke(prompt)
