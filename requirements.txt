@@ -1,0 +1,150 @@
+RAG AI Assistant (FREE VERSION - NO API COST)
+
+---
+
+1. Folder Structure
+
+---
+
+rag-ai-assistant/
+│
+├── app.py
+├── rag_pipeline.py
+├── requirements.txt
+├── data/
+│    └── python-machine-learning-2nd.pdf
+
+---
+
+2. requirements.txt
+
+---
+
+fastapi
+uvicorn
+langchain
+langchain-community
+langchain-text-splitters
+faiss-cpu
+pypdf
+sentence-transformers
+
+---
+
+3. rag_pipeline.py
+
+---
+
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import CharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+def create_vector_store():
+pdf_path = "data/python-machine-learning-2nd.pdf"
+
+```
+loader = PyPDFLoader(pdf_path)
+documents = loader.load()
+
+splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+docs = splitter.split_documents(documents)
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+
+vectorstore = FAISS.from_documents(docs, embeddings)
+vectorstore.save_local("vectorstore")
+```
+
+def load_vector_store():
+embeddings = HuggingFaceEmbeddings(
+model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+return FAISS.load_local("vectorstore", embeddings)
+
+def get_answer(query):
+vectorstore = load_vector_store()
+docs = vectorstore.similarity_search(query, k=3)
+
+```
+context = "\n".join([doc.page_content for doc in docs])
+
+return f"Answer from PDF:\n\n{context[:1000]}"
+```
+
+---
+
+4. app.py
+
+---
+
+from fastapi import FastAPI
+from rag_pipeline import create_vector_store, get_answer
+import os
+
+app = FastAPI()
+
+@app.on_event("startup")
+def startup_event():
+if not os.path.exists("vectorstore"):
+create_vector_store()
+
+@app.get("/ask/")
+def ask_question(query: str):
+answer = get_answer(query)
+return {"answer": answer}
+
+---
+
+5. Install Dependencies
+
+---
+
+pip install -r requirements.txt
+
+---
+
+6. Run Project
+
+---
+
+uvicorn app:app --reload
+
+---
+
+7. Open in Browser
+
+---
+
+http://127.0.0.1:8000/docs
+
+---
+
+8. Example Question
+
+---
+
+What is machine learning?
+
+---
+
+9. Output Example
+
+---
+
+{
+"answer": "Answer from PDF: Machine learning is..."
+}
+
+---
+
+10. Notes
+
+---
+
+* No API key required
+* Fully free project
+* First run may take time (model download)
+* Uses HuggingFace embeddings
