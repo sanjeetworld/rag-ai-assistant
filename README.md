@@ -1,30 +1,24 @@
-# 🚀 RAG AI Assistant (Free Version)
+# RAG AI Assistant (Free Version)
 
 A Retrieval-Augmented Generation (RAG) based AI system that answers questions from PDF documents using local embeddings (no API key required).
 
----
+## Features
 
-## 📌 Features
+- Upload and process PDF documents
+- Semantic search using FAISS
+- AI-based question answering from document context
+- Fully free (no OpenAI API required)
+- FastAPI backend with Swagger UI
 
-* 📄 Upload and process PDF documents
-* 🔍 Semantic search using FAISS
-* 🤖 AI-based question answering from document context
-* 💰 Fully FREE (no OpenAI API required)
-* ⚡ FastAPI backend with Swagger UI
+## Tech Stack
 
----
+- Python
+- FastAPI
+- LangChain
+- FAISS (Vector Database)
+- Hugging Face Embeddings (`sentence-transformers`)
 
-## 🧠 Tech Stack
-
-* Python
-* FastAPI
-* LangChain
-* FAISS (Vector Database)
-* Hugging Face Embeddings (`sentence-transformers`)
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 rag-ai-assistant/
@@ -36,18 +30,14 @@ rag-ai-assistant/
 │    └── python-machine-learning-2nd.pdf
 ```
 
----
-
-## ⚙️ Installation
+## Installation
 
 ### 1. Clone the repository
 
 ```
-git clone https://github.com/yourusername/rag-ai-assistant.git
+git clone [https://github.com/yourusername/rag-ai-assistant.git](https://github.com/yourusername/rag-ai-assistant.git)
 cd rag-ai-assistant
 ```
-
----
 
 ### 2. Create virtual environment
 
@@ -56,50 +46,40 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
----
-
 ### 3. Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
----
-
-## ▶️ Run the Project
+## Run the Project
 
 ```
 uvicorn app:app --reload
 ```
 
----
-
-## 🌐 API Documentation
+## API Documentation
 
 Open in browser:
 
 ```
-http://127.0.0.1:8000/docs
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 ```
 
----
-
-## ❓ How to Use
+## How to Use
 
 1. Start the server
 2. Open `/docs`
 3. Use `/ask/` endpoint
 4. Enter your question
 
-### Example:
+### Example
 
 ```
 What is machine learning?
 ```
 
----
-
-## 📊 Example Output
+## Example Output
 
 ```
 {
@@ -107,32 +87,23 @@ What is machine learning?
 }
 ```
 
----
+## Notes
 
-## ⚠️ Notes
+- No API key required
+- First run may take time (model download)
+- Works fully offline after setup
 
-* No API key required
-* First run may take time (model download)
-* Works fully offline after setup
+## Future Improvements
 
----
+- ChatGPT-like UI
+- Multi-PDF support
+- Voice input/output
+- Deployment on cloud
 
-## 🚀 Future Improvements
+## Author
 
-* ChatGPT-like UI
-* Multi-PDF support
-* Voice input/output
-* Deployment on cloud
+Sanjeet Kumar  
 
----
+```
 
-## 👨‍💻 Author
-
-**Sanjeet Kumar**
-AI/ML Engineer | Developer
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
+This version keeps the professional GitHub style, removes emojis, and maintains clarity and simplicity.
